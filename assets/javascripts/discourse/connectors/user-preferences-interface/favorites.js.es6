@@ -1,13 +1,13 @@
-import favorites from 'discourse/plugins/discourse-favorites/lib/favorites';
+import lohnrechner from 'discourse/plugins/discourse-lohnrechner/lib/lohnrechner';
 import Category from 'discourse/models/category';
 
 export default {
 
   setupComponent(args, component) {
-    favorites.get(function (categoryIds) {
+    lohnrechner.get(function (categoryIds) {
       component.set('selectedCategories', Category.findByIds(categoryIds));
       component.addObserver('selectedCategories', function() {
-        favorites.set(component.get('selectedCategories').map(category => category.id));
+        lohnrechner.set(component.get('selectedCategories').map(category => category.id));
       });
     });
   },

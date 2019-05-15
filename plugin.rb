@@ -46,12 +46,12 @@ after_initialize do
   end
 
 
-  Favorites::Engine.routes.draw do
+  Lohnrechner::Engine.routes.draw do
     get "/"       => "lohnrechner#redirect"
   end
 
   Discourse::Application.routes.append do
-    mount ::Favorites::Engine, at: "/lohnrechner"
+    mount ::Lohnrechner::Engine, at: "/lohnrechner"
   end
 
 end

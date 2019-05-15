@@ -1,23 +1,23 @@
 en:
   js:
-    favorites:
-      category: 'Favorites'
+    lohnrechner:
+      category: 'Lohnrechner'
       preferences:
-        select_favorites: 'Favorite categories'
-        select_favorites_instructions: 'Select all categories that you like the most to make them more accessible.'
+        select_lohnrechner: 'Favorite categories'
+        select_lohnrechner_instructions: 'Select all categories that you like the most to make them more accessible.'
     filters:
-      favorites:
+      lohnrechner:
         latest:
-          title: "Latest favorites"
+          title: "Latest lohnrechner"
           help: "latest topics from your favorite categories"
         new:
-          title: "New favorites"
+          title: "New lohnrechner"
           help: "new topics from your favorite categories"
         unread:
-          title: "Unread favorites"
+          title: "Unread lohnrechner"
           help: "unread topics from your favorite categories"
     topics:
       none:
-        favorites: 'You have no favorite topics.'
+        lohnrechner: 'You have no favorite topics.'
       bottom:
-        favorites: 'There are no more favorite topics.'
+        lohnrechner: 'There are no more favorite topics.'

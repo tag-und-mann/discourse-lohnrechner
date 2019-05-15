@@ -14,7 +14,7 @@ export default {
   lohnrechner: [],
 
   /**
-   * State of favorites loading.
+   * State of lohnrechner loading.
    *
    * @type {Integer}
    */
@@ -35,20 +35,20 @@ export default {
     while (this.callbacks.length > 0) {
       let [categoryId, callback] = this.callbacks.pop();
       if (categoryId !== undefined) {
-        callback(this.favorites.has(categoryId));
+        callback(this.lohnrechner.has(categoryId));
       } else {
-        callback(Array.from(this.favorites));
+        callback(Array.from(this.lohnrechner));
       }
     }
   },
 
   /**
-   * Constructs the favorites Set from the JSON response.
+   * Constructs the lohnrechner Set from the JSON response.
    *
-   * @param {Array} favorites
+   * @param {Array} lohnrechner
    */
-  _setFavorites(favorites) {
-    this.favorites = new Set(favorites.map(num => parseInt(num)));
+  _setLohnrechner(lohnrechner) {
+    this.lohnrechner = new Set(lohnrechner.map(num => parseInt(num)));
     this.state = LOADED;
     this._fireCallbacks();
   },
@@ -56,26 +56,26 @@ export default {
   /**
    * Gets the favorite categories from the server and then fires callbacks.
    *
-   * If favorites were already fetched, the callbacks will be immediately
-   * fired. If favorites are already loading, this does nothing.
+   * If lohnrechner were already fetched, the callbacks will be immediately
+   * fired. If lohnrechner are already loading, this does nothing.
    */
-  _getFavorites() {
+  _getLohnrechner() {
 
-    // If favorites are already loaded fire waiting callbacks.
+    // If lohnrechner are already loaded fire waiting callbacks.
     if (this.state === LOADED) {
       this._fireCallbacks();
     }
 
-    // If favorites are loading or were loaded, do not fetch them again.
+    // If lohnrechner are loading or were loaded, do not fetch them again.
     if (this.state !== UNINITIALIZED) {
       return;
     }
 
-    // Load the favorites and then execute all callbacks in queue or try again
+    // Load the lohnrechner and then execute all callbacks in queue or try again
     // in the future.
     this.state = LOADING;
-    ajax("/favorites/get").then(result => {
-      this._setFavorites(result.favorites);
+    ajax("/lohnrechner/get").then(result => {
+      this._setLohnrechner(result.lohnrechner);
     }).catch((err) => {
       console.log("Error loading favorite categories.", err);
       this.state = UNINITIALIZED;
@@ -88,13 +88,13 @@ export default {
    * @param {Array} categoryIds Array of category IDs.
    */
   set(categoryIds) {
-    return ajax("/favorites/set", {
+    return ajax("/lohnrechner/set", {
       type: "PUT",
       data: {
         category_ids: categoryIds
       }
     }).then(result => {
-      this._setFavorites(result.favorites);
+      this._setLohnrechner(result.lohnrechner);
     }).catch((err) => {
       console.log("Error setting favorite category.", err);
     });
@@ -106,13 +106,13 @@ export default {
    * @param {Integer} categoryId Category ID.
    */
   add(categoryId) {
-    return ajax("/favorites/add", {
+    return ajax("/lohnrechner/add", {
       type: "PUT",
       data: {
         category_id: categoryId
       }
     }).then(result => {
-      this._setFavorites(result.favorites);
+      this._setLohnrechner(result.lohnrechner);
     }).catch((err) => {
       console.log("Error adding favorite category.", err);
     });
@@ -124,13 +124,13 @@ export default {
    * @param {Integer} categoryId Category ID.
    */
   remove(categoryId) {
-    return ajax("/favorites/remove", {
+    return ajax("/lohnrechner/remove", {
       type: "PUT",
       data: {
         category_id: categoryId
       }
     }).then(result => {
-      this._setFavorites(result.favorites);
+      this._setLohnrechner(result.lohnrechner);
     }).catch((err) => {
       console.log("Error removing favorite category.", err);
     });
@@ -144,7 +144,7 @@ export default {
    */
   get(callback) {
     this.callbacks.push([undefined, callback]);
-    this._getFavorites();
+    this._getLohnrechner();
   },
 
   /**
@@ -158,6 +158,6 @@ export default {
    */
   isFavorite(categoryId, callback) {
     this.callbacks.push([categoryId, callback]);
-    this._getFavorites();
+    this._getLohnrechner();
   },
 };

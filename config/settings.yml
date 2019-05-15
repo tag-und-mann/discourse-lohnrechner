@@ -1,4 +1,4 @@
 plugins:
-  favorites_enabled:
+  lohnrechner_enabled:
     default: true
     client: true
