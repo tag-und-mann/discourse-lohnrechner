@@ -4,6 +4,8 @@
 # authors: Amos Calamida
 # url: https://github.com/tag-und-mann/discourse-lohnrechner/
 
+enabled_site_setting :lohnrechner_enabled
+
 after_initialize do
 
   require_dependency "application_controller"
@@ -28,7 +30,7 @@ after_initialize do
          time = Time.now.to_i.to_s
          time_token = Base64::strict_encode64(Base64::strict_encode64(time)+(Date.today).strftime('%y'))
 
-         referral = "doc-doc"
+         referral = this.siteSettings.lohnrechner_referral
          referral_token = Digest::MD5.hexdigest(referral+time_token)
 
          separator = "|"
@@ -49,7 +51,7 @@ after_initialize do
 
     def redirect
       token = Lohnrechner::Lohnrechner.generateToken()
-      url = "https://www.vsao-zh.ch/lohnrechner/?token="+token
+      url = this.siteSettings.lohnrechner_url+"?"+this.siteSettings.lohnrechner_token_url_parameter+"="+token
       redirect_to url
     end
 
