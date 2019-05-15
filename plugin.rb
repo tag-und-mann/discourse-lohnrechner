@@ -30,7 +30,7 @@ after_initialize do
          time = Time.now.to_i.to_s
          time_token = Base64::strict_encode64(Base64::strict_encode64(time)+(Date.today).strftime('%y'))
 
-         referral = this.siteSettings.lohnrechner_referral
+         referral = siteSettings.lohnrechner_referral
          referral_token = Digest::MD5.hexdigest(referral+time_token)
 
          separator = "|"
@@ -51,7 +51,7 @@ after_initialize do
 
     def redirect
       token = Lohnrechner::Lohnrechner.generateToken()
-      url = this.siteSettings.lohnrechner_url+"?"+this.siteSettings.lohnrechner_token_url_parameter+"="+token
+      url = siteSettings.lohnrechner_url+"?"+siteSettings.lohnrechner_token_url_parameter+"="+token
       redirect_to url
     end
 
