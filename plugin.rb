@@ -28,7 +28,7 @@ after_initialize do
          time = Time.now.to_i.to_s
          time_token = Base64::strict_encode64(Base64::strict_encode64(time)+(Date.today).strftime('%y'))
 
-         referral = "docdoc"
+         referral = "doc-doc"
          referral_token = Digest::MD5.hexdigest(referral+time_token)
 
          separator = "|"
