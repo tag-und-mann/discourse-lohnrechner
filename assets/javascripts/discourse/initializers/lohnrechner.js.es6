@@ -1,5 +1,4 @@
 import buildTopicRoute from 'discourse/routes/build-topic-route';
-import lohnrechner from 'discourse/plugins/discourse-lohnrechner/lib/lohnrechner';
 import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 function buildLohnrechnerRoute(filter) {
