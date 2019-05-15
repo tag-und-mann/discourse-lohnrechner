@@ -8,6 +8,7 @@ after_initialize do
 
   require_dependency "application_controller"
   require_dependency "plugin_store"
+  require "base64"
 
   module ::Lohnrechner
     PLUGIN_NAME = "lohnrechner".freeze
@@ -24,7 +25,18 @@ after_initialize do
     
 
       def generateToken()
-       "TestToken"
+         time = Time.now.to_i.to_s
+         time_token = Base64::strict_encode64(Base64::strict_encode64(time)+(Date.today).strftime('%y'))
+
+         referral = "docdoc"
+         referral_token = Digest::MD5.hexdigest(referral)
+
+         separator = "|"
+
+         token = time_token+separator+referral_token
+
+         url = "https://www.vsao-zh.ch/lohnrechner/"
+         redirect_to url, :overwrite_params => { :token => token }
       end
 
      
