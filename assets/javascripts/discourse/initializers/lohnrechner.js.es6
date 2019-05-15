@@ -1,4 +1,5 @@
 import buildTopicRoute from 'discourse/routes/build-topic-route';
+import DiscoverySortableController from "discourse/controllers/discovery-sortable"
 import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 function buildLohnrechnerRoute(filter) {
