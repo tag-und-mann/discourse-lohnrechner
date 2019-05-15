@@ -1,4 +1,3 @@
-# Discourse Favorites
+# Discourse Lohnrechner
 
-Adds an option to track your favorties categories and easily create a feed
-using topics that match your preferences.
+Adds an option to generate a Lohnrechner Token and redirect the User to the Lohnrecher Page
