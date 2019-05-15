@@ -29,14 +29,12 @@ after_initialize do
          time_token = Base64::strict_encode64(Base64::strict_encode64(time)+(Date.today).strftime('%y'))
 
          referral = "docdoc"
-         referral_token = Digest::MD5.hexdigest(referral)
+         referral_token = Digest::MD5.hexdigest(referral+time_token)
 
          separator = "|"
 
          token = time_token+separator+referral_token
 
-         url = "https://www.vsao-zh.ch/lohnrechner/"
-         redirect_to url, :overwrite_params => { :token => token }
       end
 
      
@@ -51,8 +49,8 @@ after_initialize do
 
     def redirect
       token = Lohnrechner::Lohnrechner.generateToken()
-
-      render json: token
+      url = "https://www.vsao-zh.ch/lohnrechner/?token="+token
+      redirect_to url
     end
 
   end
