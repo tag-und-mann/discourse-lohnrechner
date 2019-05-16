@@ -33,7 +33,7 @@ after_initialize do
          referral = SiteSetting.lohnrechner_referral
          referral_token = Digest::MD5.hexdigest(referral+time_token)
 
-         separator = "+"
+         separator = "-"
 
          token = time_token+separator+referral_token
 
